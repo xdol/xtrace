@@ -1,9 +1,10 @@
 package config
 
 import (
-	"github.com/joho/godotenv"
 	"log"
 	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type Config struct {
@@ -19,6 +20,6 @@ func GetEnv() Config {
 	if err != nil {
 		log.Fatal(err)
 	}
-	return Config{ListenAddress: os.Getenv("XTRACE_LISTEN")}
 
+	return Config{ListenAddress: os.Getenv("XTRACE_LISTEN")}
 }
