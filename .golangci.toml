@@ -1,0 +1,16 @@
+[linters]
+enable-all = true
+disable = [
+  "execinquery",
+  "gomnd",
+  "wsl",
+  "testpackage",
+  "err113",
+  "varnamelen",
+  "exhaustruct",
+]
+
+[linters-settings.depguard.rules.main]
+list-mode = "lax"
+allow = [ "$gostd", "github.com/pelletier/go-toml/v2" ]
+

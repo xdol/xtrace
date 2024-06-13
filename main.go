@@ -1,11 +1,15 @@
 package main
 
 import (
+	"log"
+
 	"git.xdol.org/xdol/xtrace/internal/config"
-	"git.xdol.org/xdol/xtrace/internal/router"
 )
 
 func main() {
-	currentConfig := config.GetEnv()
-	router.HTTPHandle(currentConfig.ListenAddress)
+	c, err := config.LoadToml("config.toml")
+	if err != nil {
+		log.Fatal(err)
+	}
+	c.HTTP.Server()
 }

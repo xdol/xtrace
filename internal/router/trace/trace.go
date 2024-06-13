@@ -7,7 +7,7 @@ import (
 	"strings"
 )
 
-func DisplayTrace(writer http.ResponseWriter, request *http.Request) {
+func Get(writer http.ResponseWriter, request *http.Request) {
 	listHeader := []string{"Accept", "Accept-Encoding", "Accept-Language", "User-Agent"}
 	var builder strings.Builder
 	builder.WriteString("ip: " + request.Header.Get("X-Forwarded-For") + "\n")
