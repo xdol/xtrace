@@ -1,25 +1,28 @@
 package config
 
 import (
-	"log"
 	"os"
 
-	"github.com/joho/godotenv"
+	"git.xdol.org/xdol/xtrace/internal/router"
+	"github.com/pelletier/go-toml/v2"
 )
 
 type Config struct {
-	ListenAddress string
+	HTTP router.Config
 }
 
-func GetEnv() Config {
-	err := godotenv.Load()
+func LoadToml(file string) (Config, error) {
+	var c Config
+
+	source, err := os.ReadFile(file)
 	if err != nil {
-		log.Fatal(err)
-	}
-	err = godotenv.Load(".env")
-	if err != nil {
-		log.Fatal(err)
+		return c, errConfigFileNotReadable
 	}
 
-	return Config{ListenAddress: os.Getenv("XTRACE_LISTEN")}
+	err = toml.Unmarshal(source, &c)
+	if err != nil {
+		panic(err)
+	}
+
+	return c, nil
 }
