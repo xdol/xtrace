@@ -1,2 +1,27 @@
 [HTTP]
 listen = ":3000"
+
+[[http.error.errors]]
+code = 401
+title = "Unauthorized"
+message = "You have to be authenticated"
+
+[[http.error.errors]]
+code = 403
+title = "Forbidden"
+message = "You don't have the right to see it, so you can't see it"
+
+[[http.error.errors]]
+code = 500
+title = "Internal server error"
+message = "It seems you want to crash the web server..."
+
+[[http.error.errors]]
+code = 502
+title = "Bad gateway"
+message = "Backend server has a issue"
+
+[[http.error.errors]]
+code = 503
+title = "Service unvailable"
+message = "Backend server are unavailable, please retry later"

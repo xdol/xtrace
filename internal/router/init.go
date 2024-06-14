@@ -9,9 +9,12 @@ import (
 )
 
 func (c Config) Server() {
+	//fs := http.FileServer(http.Dir("./static"))
+
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /trace", trace.Get)
-	log.Println("Listen on", c.ListenAddress)
+	mux.HandleFunc("GET /errors/{code}", c.Error.Get)
+	http.Handle("/static/", http.FileServer(http.Dir("./static")))
 
 	server := &http.Server{
 		Addr:        c.ListenAddress,
@@ -19,8 +22,7 @@ func (c Config) Server() {
 		Handler:     mux,
 	}
 
-	err := server.ListenAndServe()
-	if err != nil {
-		log.Fatal(err)
-	}
+	log.Println("Listen on", c.ListenAddress)
+
+	log.Fatal(server.ListenAndServe())
 }
