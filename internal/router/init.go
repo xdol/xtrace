@@ -9,12 +9,12 @@ import (
 )
 
 func (c Config) Server() {
-	//fs := http.FileServer(http.Dir("./static"))
+	fs := http.FileServer(http.Dir("./static"))
 
 	mux := http.NewServeMux()
 	mux.HandleFunc("GET /trace", trace.Get)
 	mux.HandleFunc("GET /errors/{code}", c.Error.Get)
-	http.Handle("/static/", http.FileServer(http.Dir("./static")))
+	mux.Handle("/static/", http.StripPrefix("/static/", fs))
 
 	server := &http.Server{
 		Addr:        c.ListenAddress,
